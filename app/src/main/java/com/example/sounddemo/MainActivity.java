@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.transition.Scene;
 import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     MediaPlayer mediaPlayer;
@@ -60,6 +64,35 @@ public void pause(View view){
 
             }
         });
+
+        SeekBar seekBar1=findViewById(R.id.seekBarscrub);
+        seekBar1.setMax(mediaPlayer.getDuration());
+        seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Log.i("info",Integer.toString(progress));
+                mediaPlayer.seekTo(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                mediaPlayer.pause();
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                mediaPlayer.start();
+
+            }
+        });
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+
+                   seekBar1.setProgress(mediaPlayer.getCurrentPosition());
+            }
+        },0,100);
 
     }
 }

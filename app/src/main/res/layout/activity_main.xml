@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonpause" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seekBarscrub"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
